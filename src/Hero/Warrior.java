@@ -1,4 +1,6 @@
-public class Warrior extends Hero{
+package Hero;
+
+public class Warrior extends Hero {
     private int defencePoint;
 
     public Warrior(String heroID, String heroName) {

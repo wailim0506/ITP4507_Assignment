@@ -1,4 +1,6 @@
-public class Warlock extends Hero{
+package Hero;
+
+public class Warlock extends Hero {
     private int mp;
     
     public Warlock(String heroID, String heroName) {
@@ -26,7 +28,7 @@ public class Warlock extends Hero{
     @Override
     public void showHeroStatus() {
         System.out.println(getHeroID() + 
-                ", "+getHeroName() + ", Warlock, Hp: "+getHp() + 
+                ", "+getHeroName() + ", Warlock, Hp: "+getHp() +
                 ", Damage: "+getDamage() + ", Mp: "+mp);
     }    
 }
