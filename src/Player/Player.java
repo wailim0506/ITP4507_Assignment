@@ -33,10 +33,12 @@ public class Player {
 
     public void addHero(Hero hero) {
         //add your own codes
+        heroes.add(hero);
     }
     
     public void removeHero(Hero hero) {
         //add your own codes
+        heroes.remove(hero);
     }
     
     public void showPlayerDetails(){
