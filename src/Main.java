@@ -22,7 +22,7 @@ public class Main {
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
                     "c = create player, g = set current player, a = add hero, m = call hero skill, d \n" +
-                    "= delete hero, s = show player, p = display all players, t = change player’s \n" +
+                    "= delete hero, s = show player, p = display all players, t = change player\'s \n" +
                     "name, u = undo, r = redo, l = list undo/redo, x = exit system ");
             System.out.print("Please enter command [ c | g | a | m | d | s | p | t | u | r | l | x ] :-");
             String input = sc.nextLine();
