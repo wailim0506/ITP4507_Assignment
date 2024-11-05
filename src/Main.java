@@ -4,17 +4,16 @@ import PlayerFactory.*;
 import Command.*;
 import Player.*;
 
-import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-//        HeroFactory n = new WarlockFactory();
+        HeroFactory warlockFactory = new WarlockFactory();
+        HeroFactory warriorFactory = new WarriorFactory();
         PlayerFactory pf = new PlayerFactory();
-//        Player u = p.createPlayer(sc);
-//        Hero y = n.createHero(sc);
+
         Vector<Player> playerVector = new Vector<Player>(); // Vector to store all players
         Stack<Command> commandStack = new Stack<Command>(); // Stack to store executed commands
         Stack<Command> redoStack = new Stack<Command>(); // Stack to store all commands to be redo
@@ -42,7 +41,7 @@ public class Main {
                     System.out.println("Current player is changed to " + p.getPlayerID());
                     break;
                 case "g":
-                    if (playerVector.size() > 0){
+                    if (playerVector.size() > 0) {
                         System.out.print("Please input player ID:- ");
                         String id = sc.nextLine();
                         for (int i = 0; i < playerVector.size(); i++) {
@@ -56,28 +55,62 @@ public class Main {
                                 System.out.println("Player not found");
                             }
                         }
-                    }else{
+                    } else {
                         System.out.println("No player available");
                     }
                     break;
                 case "a":
+                    if (currentPlayer == null) {
+                        System.out.println("No player to add hero");
+                        break;
+                    }
+                    System.out.print("Please input hero information (id, name):- ");
+                    String idName = sc.nextLine();
+                    String[] split = idName.split(", ");
+                    String id = split[0];
+                    String name = split[1];
+                    System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
+                    String heroType = sc.nextLine();
+                    Hero heroToAdd;
+                    if (heroType.equals("1")) {
+                        heroToAdd = warriorFactory.createHero(sc, id, name);
+                        currentPlayer.addHero(heroToAdd);
+                        System.out.println("Hero is added.");
+                    } else if (heroType.equals("2")) {
+                        heroToAdd = warlockFactory.createHero(sc, id, name);
+                        currentPlayer.addHero(heroToAdd);
+                        System.out.println("Hero is added.");
+                    } else {
+                        System.out.println("Invalid hero type");
+                    }
                     break;
                 case "m":
                     break;
                 case "d":
                     break;
                 case "s":
-                    if (currentPlayer != null){
+                    if (currentPlayer != null) {
                         System.out.println("Player " + currentPlayer.getPlayerName() + " (" + currentPlayer.getPlayerID() + ")");
                         System.out.println("Heroes: ");
-                        //to be done
-                    }else{
+                        // to be done
+                    } else {
                         System.out.println("No player to show");
                     }
                     break;
                 case "p":
+                    if (playerVector.size() > 0) {
+                        for (int i = 0; i < playerVector.size(); i++) {
+                            System.out.println("Player " + playerVector.get(i).getPlayerName() + " (" + playerVector.get(i).getPlayerID() + ")");
+                        }
+                    } else {
+                        System.out.println("No player to show");
+                    }
                     break;
                 case "t":
+                    if (currentPlayer == null) {
+                        System.out.println("No player to change name");
+                        break;
+                    }
                     System.out.print("Please input new name of the current player:- ");
                     String newName = sc.nextLine();
                     currentPlayer.setPlayerName(newName);

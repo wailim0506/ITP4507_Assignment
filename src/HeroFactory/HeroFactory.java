@@ -4,5 +4,5 @@ import Hero.*;
 import java.util.*;
 
 public interface HeroFactory {
-    Hero createHero(Scanner sc);
+    Hero createHero(Scanner sc, String id, String name);
 }
