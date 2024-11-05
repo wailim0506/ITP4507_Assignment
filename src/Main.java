@@ -92,6 +92,14 @@ public class Main {
                     if (currentPlayer != null) {
                         System.out.println("Player " + currentPlayer.getPlayerName() + " (" + currentPlayer.getPlayerID() + ")");
                         System.out.println("Heroes: ");
+                        Vector<Hero> playerHeroVector = currentPlayer.getHeroes();
+                        if (playerVector.size() > 0) {
+                            for (int i = 0; i < playerHeroVector.size(); i++) {
+                             // to be done
+                            }
+                        } else {
+                            System.out.println("No hero to show");
+                        }
                         // to be done
                     } else {
                         System.out.println("No player to show");
