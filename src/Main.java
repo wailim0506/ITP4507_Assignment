@@ -85,8 +85,54 @@ public class Main {
                     }
                     break;
                 case "m":
+                    if (playerVector.size() > 0) {
+                        if (currentPlayer.getHeroes().size() > 0) {
+                            System.out.print("Please input hero ID:- ");
+                            String heroID = sc.nextLine();
+                            boolean found = false;
+                            for (int i = 0; i < currentPlayer.getHeroes().size(); i++) {
+                                Hero hero = currentPlayer.getHeroes().get(i);
+                                if (hero.getHeroID().equals(heroID)) {
+                                    found = true;
+                                    hero.callSkill();
+                                    System.out.println(hero.getHeroID() + " " + hero.getHeroName() + "'s attributes are changed to:");
+                                    hero.showHeroStatus();
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                System.out.println("Hero not found");
+                            }
+                        }else{
+                            System.out.println("No hero available");
+                        }
+                    }else{
+                        System.out.println("No player to call hero skills");
+                    }
                     break;
                 case "d":
+                    if (currentPlayer != null){
+                        if (currentPlayer.getHeroes().size() > 0) {
+                            System.out.print("Please input hero ID:- ");
+                            String heroID = sc.nextLine();
+                            boolean found = false;
+                            for (int i = 0; i < currentPlayer.getHeroes().size(); i++) {
+                                Hero hero = currentPlayer.getHeroes().get(i);
+                                if (hero.getHeroID().equals(heroID)) {
+                                    found = true;
+                                    System.out.println(hero.getHeroID() + " " + hero.getHeroName() + "is deleted.");
+                                    currentPlayer.getHeroes().remove(i);
+                                }
+                            }
+                            if (!found) {
+                                System.out.println("Hero not found");
+                            }
+                        }else{
+                            System.out.println("No hero available");
+                        }
+                    }else{
+                        System.out.println("No current player");
+                    }
                     break;
                 case "s":
                     if (currentPlayer != null) {
@@ -95,12 +141,11 @@ public class Main {
                         Vector<Hero> playerHeroVector = currentPlayer.getHeroes();
                         if (playerVector.size() > 0) {
                             for (int i = 0; i < playerHeroVector.size(); i++) {
-                             // to be done
+                                playerHeroVector.get(i).showHeroStatus();
                             }
                         } else {
                             System.out.println("No hero to show");
                         }
-                        // to be done
                     } else {
                         System.out.println("No player to show");
                     }
