@@ -24,7 +24,9 @@ public class ShowUndoRedoCommand implements Command {
         System.out.println("-- End of redo list --");
     }
     public void undo(String message) {
+        //no need implementation
     }
     public void redo(String message) {
+        //no need implementation
     }
 }

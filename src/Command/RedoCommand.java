@@ -27,7 +27,9 @@ public class RedoCommand implements Command {
         }
     }
     public void undo(String message) {
+        //no need implementation
     }
     public void redo(String message) {
+        //no need implementation
     }
 }
