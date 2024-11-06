@@ -13,6 +13,9 @@ public class Main {
         Vector<Player> playerVector = new Vector<Player>(); // Vector to store all players
         Stack<Command> commandStack = new Stack<Command>(); // Stack to store executed commands
         Stack<Command> redoStack = new Stack<Command>(); // Stack to store all commands to be redo
+        Stack<String> commandList = new Stack<String>(); // Stack to store undoable commands
+        Stack<String> redoList = new Stack<String>(); // Stack to store redoable commands
+
 
         CurrentPlayerHolder currentPlayerHolder = new CurrentPlayerHolder(null); // Current player
 
@@ -33,6 +36,9 @@ public class Main {
         Command AddHeroCommand = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory);
         Command CallHeroSkillCommand = new CallHeroSkillCommand(sc,currentPlayerHolder);
         Command DeleteHeroCommand = new DeleteHeroCommand(sc,currentPlayerHolder);
+        Command UndoCommand = new UndoCommand(commandStack, redoStack, commandList, redoList);
+        Command RedoCommand = new RedoCommand(commandStack, redoStack, commandList, redoList);
+        Command ShowUndoRedoCommand = new ShowUndoRedoCommand(commandList, redoList);
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
@@ -71,10 +77,13 @@ public class Main {
                     ChangePlayerNameCommand.execute();
                     break;
                 case "u":
+                    UndoCommand.execute();
                     break;
                 case "r":
+                    RedoCommand.execute();
                     break;
                 case "l":
+                    ShowUndoRedoCommand.execute();
                     break;
                 case "x":
                     exitCommand.execute();

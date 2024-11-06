@@ -9,7 +9,7 @@ public class Player {
     private String playerName;
     private Vector<Hero> heroes;
 
-    public Player(String playerID, String playerName){
+    public Player(String playerID, String playerName) {
         this.playerID = playerID;
         this.playerName = playerName;
         heroes = new Vector<>();
@@ -35,13 +35,23 @@ public class Player {
         //add your own codes
         heroes.add(hero);
     }
-    
+
     public void removeHero(Hero hero) {
         //add your own codes
         heroes.remove(hero);
     }
-    
-    public void showPlayerDetails(){
+
+    public void showPlayerDetails() {
         //add your own codes
+        System.out.println("Player " + getPlayerName() + " (" + getPlayerID() + ")");
+        System.out.println("Heroes: ");
+        Vector<Hero> playerHeroVector = getHeroes();
+        if (!heroes.isEmpty()) {
+            for (int i = 0; i < heroes.size(); i++) {
+                playerHeroVector.get(i).showHeroStatus();
+            }
+        } else {
+            System.out.println("No hero to show");
+        }
     }
 }
