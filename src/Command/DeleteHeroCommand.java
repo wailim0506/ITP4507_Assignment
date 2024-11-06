@@ -37,8 +37,8 @@ public class DeleteHeroCommand implements Command {
             System.out.println("No current player");
         }
     }
-    public void undo(){
+    public void undo(String message){
     }
-    public void redo(){
+    public void redo(String message){
     }
 }

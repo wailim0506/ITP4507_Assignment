@@ -5,11 +5,11 @@ public class exitCommand implements Command{
         System.exit(0);
     }
 
-    public void undo(){
+    public void undo(String message){
 
     }
 
-    public void redo(){
+    public void redo(String message){
 
     }
 }

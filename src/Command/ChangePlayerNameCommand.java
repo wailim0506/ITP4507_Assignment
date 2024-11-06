@@ -21,8 +21,8 @@ public class ChangePlayerNameCommand implements Command {
             System.out.println("No player to change name");
         }
     }
-    public void undo(){
+    public void undo(String message){
     }
-    public void redo(){
+    public void redo(String message){
     }
 }

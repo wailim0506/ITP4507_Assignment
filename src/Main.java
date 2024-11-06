@@ -1,8 +1,10 @@
+import CommandFactory.CommandFactory;
 import HeroFactory.*;
 import Hero.*;
 import PlayerFactory.*;
 import Command.*;
 import Player.*;
+import CommandFactory.*;
 
 import java.util.*;
 
@@ -13,11 +15,11 @@ public class Main {
         Vector<Player> playerVector = new Vector<Player>(); // Vector to store all players
         Stack<Command> commandStack = new Stack<Command>(); // Stack to store executed commands
         Stack<Command> redoStack = new Stack<Command>(); // Stack to store all commands to be redo
-        Stack<String> commandList = new Stack<String>(); // Stack to store undoable commands
-        Stack<String> redoList = new Stack<String>(); // Stack to store redoable commands
+        Stack<String> commandList = new Stack<String>(); // Stack to store undoable commands string
+        Stack<String> redoList = new Stack<String>(); // Stack to store redoable commands string
 
 
-        CurrentPlayerHolder currentPlayerHolder = new CurrentPlayerHolder(null); // Current player
+        CurrentPlayerHolder currentPlayerHolder = new CurrentPlayerHolder(null); // store current player
 
         HeroFactory warlockFactory = new WarlockFactory();
         HeroFactory warriorFactory = new WarriorFactory();
@@ -28,7 +30,7 @@ public class Main {
         HeroFactory.put("2", warlockFactory);
 
         Command exitCommand = new exitCommand();
-        Command createPlayerCommand = new createPlayerCommand(sc,pf, currentPlayerHolder,playerVector);
+        //Command createPlayerCommand = new createPlayerCommand(sc,pf, currentPlayerHolder,playerVector,redoStack,redoList);
         Command setCurrentPlayerCommand = new setCurrentPlayerCommand(sc,playerVector, currentPlayerHolder);
         Command DisplayAllPlayerCommand = new DisplayAllPlayerCommand(playerVector);
         Command ShowPlayerCommand = new ShowPlayerCommand(currentPlayerHolder);
@@ -39,6 +41,9 @@ public class Main {
         Command UndoCommand = new UndoCommand(commandStack, redoStack, commandList, redoList);
         Command RedoCommand = new RedoCommand(commandStack, redoStack, commandList, redoList);
         Command ShowUndoRedoCommand = new ShowUndoRedoCommand(commandList, redoList);
+
+        CommandFactory createPlayerCommandFactory = new createPlayerCommandFactory(sc, pf, currentPlayerHolder, playerVector, redoStack,
+                redoList, commandStack, commandList);
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
@@ -53,7 +58,8 @@ public class Main {
             String input = sc.nextLine();
             switch (input) {
                 case "c":
-                    createPlayerCommand.execute();
+//                    createPlayerCommand.execute();
+                    createPlayerCommandFactory.createCommand().execute();
                     break;
                 case "g":
                     setCurrentPlayerCommand.execute();

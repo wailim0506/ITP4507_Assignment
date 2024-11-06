@@ -45,8 +45,8 @@ public class AddHeroCommand implements Command {
         }
 
     }
-    public void undo() {
+    public void undo(String message) {
     }
-    public void redo() {
+    public void redo(String message) {
     }
 }

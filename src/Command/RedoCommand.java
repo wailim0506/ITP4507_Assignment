@@ -1,5 +1,4 @@
 package Command;
-
 import java.util.*;
 
 public class RedoCommand implements Command {
@@ -18,15 +17,17 @@ public class RedoCommand implements Command {
     public void execute() {
         if(!redoStack.isEmpty()) {
             Command command = redoStack.pop();
-            command.redo();
+            String message = redoList.pop(); //pop the redo list string
+            command.redo(message); //redo the command and display the message
+            redoList.push(message); //add back to the redo list string
             commandStack.push(command);
-            commandList.push(redoList.pop());
+            commandList.push(redoList.pop());   //pop redo list string and add to undo list string
         }else{
             System.out.println("Nothing to redo");
         }
     }
-    public void undo() {
+    public void undo(String message) {
     }
-    public void redo() {
+    public void redo(String message) {
     }
 }

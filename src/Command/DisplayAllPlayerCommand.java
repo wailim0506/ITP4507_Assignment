@@ -16,10 +16,10 @@ public class DisplayAllPlayerCommand implements Command {
             System.out.println("No player to show");
         }
     }
-    public void undo(){
+    public void undo(String message){
 
     }
-    public void redo(){
+    public void redo(String message){
 
     }
 }
