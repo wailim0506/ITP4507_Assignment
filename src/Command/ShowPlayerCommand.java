@@ -6,11 +6,9 @@ import Player.*;
 import java.util.*;
 
 public class ShowPlayerCommand implements Command {
-    private Vector<Player> playerVector;
     private CurrentPlayerHolder currentPlayerHolder;
 
-    public ShowPlayerCommand(Vector<Player> playerVector, CurrentPlayerHolder currentPlayerHolder) {
-        this.playerVector = playerVector;
+    public ShowPlayerCommand( CurrentPlayerHolder currentPlayerHolder) {
         this.currentPlayerHolder = currentPlayerHolder;
     }
 

@@ -28,7 +28,7 @@ public class Warrior extends Hero {
     @Override
     public void showHeroStatus() {
         System.out.println(getHeroID() + 
-                ", "+getHeroName() + ", Hp: "+getHp() + 
+                ", "+getHeroName() + ", Warrior, Hp: "+getHp() +
                 ", Damage: "+getDamage() + ", Defence Point: "+defencePoint);
     }    
 }
