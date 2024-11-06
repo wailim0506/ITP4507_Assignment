@@ -10,57 +10,43 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        HeroFactory warlockFactory = new WarlockFactory();
-        HeroFactory warriorFactory = new WarriorFactory();
-        PlayerFactory pf = new PlayerFactory();
-
         Vector<Player> playerVector = new Vector<Player>(); // Vector to store all players
         Stack<Command> commandStack = new Stack<Command>(); // Stack to store executed commands
         Stack<Command> redoStack = new Stack<Command>(); // Stack to store all commands to be redo
 
-        Player currentPlayer = null;
+        CurrentPlayerHolder currentPlayerHolder = new CurrentPlayerHolder(null); // Current player
+
+        HeroFactory warlockFactory = new WarlockFactory();
+        HeroFactory warriorFactory = new WarriorFactory();
+        PlayerFactory pf = new PlayerFactory();
+
+        Command exitCommand = new exitCommand();
+        Command createPlayerCommand = new createPlayerCommand(sc,pf, currentPlayerHolder,playerVector);
+        Command setCurrentPlayerCommand = new setCurrentPlayerCommand(sc,playerVector, currentPlayerHolder);
+        Command DisplayAllPlayerCommand = new DisplayAllPlayerCommand(playerVector);
+        Command ShowPlayerCommand = new ShowPlayerCommand(playerVector, currentPlayerHolder);
+        Command ChangePlayerNameCommand = new ChangePlayerNameCommand(currentPlayerHolder, sc);
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
                     "c = create player, g = set current player, a = add hero, m = call hero skill, d \n" +
                     "= delete hero, s = show player, p = display all players, t = change player's \n" +
                     "name, u = undo, r = redo, l = list undo/redo, x = exit system ");
-            if (currentPlayer != null) {
-                System.out.println("The current player is " + currentPlayer.getPlayerID() + " " +
-                        currentPlayer.getPlayerName());
+            if (currentPlayerHolder.getCurrentPlayer() != null) {
+                System.out.println("The current player is " + currentPlayerHolder.getCurrentPlayer().getPlayerID() + " " +
+                        currentPlayerHolder.getCurrentPlayer().getPlayerName());
             }
             System.out.print("Please enter command [ c | g | a | m | d | s | p | t | u | r | l | x ] :-");
             String input = sc.nextLine();
             switch (input) {
                 case "c":
-                    Player p = pf.createPlayer(sc);
-                    playerVector.add(p);
-                    System.out.println("Player " + p.getPlayerName() + " is created.");
-                    //System.out.println("Number of player in vector: " + playerVector.size());
-                    currentPlayer = p;
-                    System.out.println("Current player is changed to " + p.getPlayerID());
+                    createPlayerCommand.execute();
                     break;
                 case "g":
-                    if (playerVector.size() > 0) {
-                        System.out.print("Please input player ID:- ");
-                        String id = sc.nextLine();
-                        for (int i = 0; i < playerVector.size(); i++) {
-                            if (playerVector.get(i).getPlayerID().equals(id)) {
-                                currentPlayer = playerVector.get(i);
-                                System.out.println("Changed current player to " + currentPlayer.getPlayerID());
-                                break;
-                            }
-
-                            if (i == playerVector.size() - 1) {
-                                System.out.println("Player not found");
-                            }
-                        }
-                    } else {
-                        System.out.println("No player available");
-                    }
+                    setCurrentPlayerCommand.execute();
                     break;
                 case "a":
-                    if (currentPlayer == null) {
+                    if (currentPlayerHolder.getCurrentPlayer() == null) {
                         System.out.println("No player to add hero");
                         break;
                     }
@@ -74,11 +60,11 @@ public class Main {
                     Hero heroToAdd;
                     if (heroType.equals("1")) {
                         heroToAdd = warriorFactory.createHero(sc, id, name);
-                        currentPlayer.addHero(heroToAdd);
+                        currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
                         System.out.println("Hero is added.");
                     } else if (heroType.equals("2")) {
                         heroToAdd = warlockFactory.createHero(sc, id, name);
-                        currentPlayer.addHero(heroToAdd);
+                        currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
                         System.out.println("Hero is added.");
                     } else {
                         System.out.println("Invalid hero type");
@@ -86,12 +72,12 @@ public class Main {
                     break;
                 case "m":
                     if (playerVector.size() > 0) {
-                        if (currentPlayer.getHeroes().size() > 0) {
+                        if (currentPlayerHolder.getCurrentPlayer().getHeroes().size() > 0) {
                             System.out.print("Please input hero ID:- ");
                             String heroID = sc.nextLine();
                             boolean found = false;
-                            for (int i = 0; i < currentPlayer.getHeroes().size(); i++) {
-                                Hero hero = currentPlayer.getHeroes().get(i);
+                            for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
+                                Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
                                 if (hero.getHeroID().equals(heroID)) {
                                     found = true;
                                     hero.callSkill();
@@ -111,17 +97,17 @@ public class Main {
                     }
                     break;
                 case "d":
-                    if (currentPlayer != null){
-                        if (currentPlayer.getHeroes().size() > 0) {
+                    if (currentPlayerHolder.getCurrentPlayer() != null){
+                        if (currentPlayerHolder.getCurrentPlayer().getHeroes().size() > 0) {
                             System.out.print("Please input hero ID:- ");
                             String heroID = sc.nextLine();
                             boolean found = false;
-                            for (int i = 0; i < currentPlayer.getHeroes().size(); i++) {
-                                Hero hero = currentPlayer.getHeroes().get(i);
+                            for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
+                                Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
                                 if (hero.getHeroID().equals(heroID)) {
                                     found = true;
                                     System.out.println(hero.getHeroID() + " " + hero.getHeroName() + "is deleted.");
-                                    currentPlayer.getHeroes().remove(i);
+                                    currentPlayerHolder.getCurrentPlayer().getHeroes().remove(i);
                                 }
                             }
                             if (!found) {
@@ -135,39 +121,13 @@ public class Main {
                     }
                     break;
                 case "s":
-                    if (currentPlayer != null) {
-                        System.out.println("Player " + currentPlayer.getPlayerName() + " (" + currentPlayer.getPlayerID() + ")");
-                        System.out.println("Heroes: ");
-                        Vector<Hero> playerHeroVector = currentPlayer.getHeroes();
-                        if (playerVector.size() > 0) {
-                            for (int i = 0; i < playerHeroVector.size(); i++) {
-                                playerHeroVector.get(i).showHeroStatus();
-                            }
-                        } else {
-                            System.out.println("No hero to show");
-                        }
-                    } else {
-                        System.out.println("No player to show");
-                    }
+                    ShowPlayerCommand.execute();
                     break;
                 case "p":
-                    if (playerVector.size() > 0) {
-                        for (int i = 0; i < playerVector.size(); i++) {
-                            System.out.println("Player " + playerVector.get(i).getPlayerName() + " (" + playerVector.get(i).getPlayerID() + ")");
-                        }
-                    } else {
-                        System.out.println("No player to show");
-                    }
+                    DisplayAllPlayerCommand.execute();
                     break;
                 case "t":
-                    if (currentPlayer == null) {
-                        System.out.println("No player to change name");
-                        break;
-                    }
-                    System.out.print("Please input new name of the current player:- ");
-                    String newName = sc.nextLine();
-                    currentPlayer.setPlayerName(newName);
-                    System.out.println("Player's name is updated.");
+                    ChangePlayerNameCommand.execute();
                     break;
                 case "u":
                     break;
@@ -176,10 +136,12 @@ public class Main {
                 case "l":
                     break;
                 case "x":
-                    System.exit(0);
+                    exitCommand.execute();
                 default:
                     System.out.println("Invalid command");
+
             }
+            System.out.println();
         }
     }
 }
