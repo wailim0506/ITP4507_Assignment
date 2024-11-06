@@ -7,6 +7,7 @@ import java.util.*;
 public class DeleteHeroCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
     private Scanner sc;
+    private String message;
 
     public DeleteHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder){
         this.currentPlayerHolder = currentPlayerHolder;
@@ -37,8 +38,12 @@ public class DeleteHeroCommand implements Command {
             System.out.println("No current player");
         }
     }
-    public void undo(String message){
+    public void undo(){
     }
-    public void redo(String message){
+    public void redo(){
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

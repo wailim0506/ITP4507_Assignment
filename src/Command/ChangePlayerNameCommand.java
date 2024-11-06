@@ -5,6 +5,7 @@ import java.util.*;
 public class ChangePlayerNameCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
     private Scanner sc;
+    private String message;
 
     public ChangePlayerNameCommand(CurrentPlayerHolder currentPlayerHolder, Scanner sc) {
         this.currentPlayerHolder = currentPlayerHolder;
@@ -21,8 +22,12 @@ public class ChangePlayerNameCommand implements Command {
             System.out.println("No player to change name");
         }
     }
-    public void undo(String message){
+    public void undo(){
     }
-    public void redo(String message){
+    public void redo(){
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

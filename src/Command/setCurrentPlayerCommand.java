@@ -35,11 +35,14 @@ public class setCurrentPlayerCommand implements Command{
         }
     }
 
-    public void undo(String message){
+    public void undo(){
         //no need implementation
     }
 
-    public void redo(String message){
+    public void redo(){
         //no need implementation
+    }
+    public String getMessage(){
+        return "";
     }
 }

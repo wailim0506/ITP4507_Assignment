@@ -2,31 +2,35 @@ package Command;
 
 import java.util.*;
 
-public class ShowUndoRedoCommand implements Command {
-    private Stack<String> commandList;
-    private Stack<String> redoList;
 
-    public ShowUndoRedoCommand(Stack<String> commandList, Stack<String> redoList) {
-        this.commandList = commandList;
-        this.redoList = redoList;
+public class ShowUndoRedoCommand implements Command {
+    private Stack<Command> commandStack;
+    private Stack<Command> redoStack;
+
+    public ShowUndoRedoCommand(Stack<Command> commandStack, Stack<Command> redoStack) {
+        this.commandStack = commandStack;
+        this.redoStack = redoStack;
     }
 
     public void execute() {
         System.out.println("Undo List");
-        for (int i = commandList.size() - 1; i >= 0; i--) {
-            System.out.println(commandList.get(i));
+        for (int i = commandStack.size() - 1; i >= 0; i--) {
+            System.out.println(commandStack.get(i).getMessage());
         }
         System.out.println("-- End of undo list --");
         System.out.println("Redo List");
-        for (int i = redoList.size() - 1; i >= 0; i--) {
-            System.out.println(redoList.get(i));
+        for (int i = redoStack.size() - 1; i >= 0; i--) {
+            System.out.println(redoStack.get(i).getMessage());
         }
         System.out.println("-- End of redo list --");
     }
-    public void undo(String message) {
+    public void undo() {
         //no need implementation
     }
-    public void redo(String message) {
+    public void redo() {
         //no need implementation
+    }
+    public String getMessage(){
+        return "";
     }
 }

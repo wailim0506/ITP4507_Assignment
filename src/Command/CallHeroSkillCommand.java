@@ -7,6 +7,7 @@ import java.util.*;
 public class CallHeroSkillCommand implements Command {
     private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
+    private String message;
 
     public CallHeroSkillCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder) {
         this.sc = sc;
@@ -39,10 +40,14 @@ public class CallHeroSkillCommand implements Command {
             System.out.println("No player to call hero skills");
         }
     }
-    public void undo(String message){
+    public void undo(){
 
     }
-    public void redo(String message){
+    public void redo(){
 
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

@@ -17,20 +17,16 @@ public class createPlayerCommandFactory implements CommandFactory {
     private CurrentPlayerHolder currentPlayerHolder;
     private Vector<Player> playerVector;
     private Stack<Command> redoStack;// Stack to store all commands to be redo
-    private Stack<String> redoList;
     private Stack<Command> commandStack;  // Stack to store executed commands
-    private Stack<String> commandList; // Stack to store undoable commands string
 
     public createPlayerCommandFactory(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
-                                      Vector<Player> playerVector, Stack<Command> redoStack, Stack<String> redoList, Stack<Command> commandStack, Stack<String> commandList) {
+                                      Vector<Player> playerVector, Stack<Command> redoStack, Stack<Command> commandStack) {
         this.sc = sc;
         this.pf = pf;
         this.currentPlayerHolder = currentPlayerHolder;
         this.playerVector = playerVector;
         this.redoStack = redoStack;
-        this.redoList = redoList;
         this.commandStack = commandStack;
-        this.commandList = commandList;
     }
 
     public Command createCommand() {
@@ -51,7 +47,7 @@ public class createPlayerCommandFactory implements CommandFactory {
 
         System.out.print("Player Name:- ");
         String name = sc.nextLine();
-        Command c = new createPlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack, redoList, commandList,id,name);
+        Command c = new createPlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name);
         commandStack.push(c);
         return c;
     }

@@ -9,6 +9,7 @@ public class AddHeroCommand implements Command {
     private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
     private HashMap<String, HeroFactory> HeroFactory;
+    private String message;
 
     public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory) {
         this.sc = sc;
@@ -45,8 +46,13 @@ public class AddHeroCommand implements Command {
         }
 
     }
-    public void undo(String message) {
+    public void undo() {
     }
-    public void redo(String message) {
+    public void redo() {
     }
+
+    public String getMessage(){
+        return message;
+    }
+
 }
