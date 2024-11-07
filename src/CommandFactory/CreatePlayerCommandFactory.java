@@ -1,5 +1,4 @@
 package CommandFactory;
-
 import Command.*;
 import Player.CurrentPlayerHolder;
 import Player.Player;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.Vector;
 
-public class createPlayerCommandFactory implements CommandFactory {
+public class CreatePlayerCommandFactory implements CommandFactory {
 
     private Scanner sc;
     private PlayerFactory pf;
@@ -19,7 +18,7 @@ public class createPlayerCommandFactory implements CommandFactory {
     private Stack<Command> redoStack;// Stack to store all commands to be redo
     private Stack<Command> commandStack;  // Stack to store executed commands
 
-    public createPlayerCommandFactory(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
+    public CreatePlayerCommandFactory(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                       Vector<Player> playerVector, Stack<Command> redoStack, Stack<Command> commandStack) {
         this.sc = sc;
         this.pf = pf;
@@ -47,7 +46,7 @@ public class createPlayerCommandFactory implements CommandFactory {
 
         System.out.print("Player Name:- ");
         String name = sc.nextLine();
-        Command c = new createPlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name);
+        Command c = new CreatePlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name);
         commandStack.push(c);
         return c;
     }

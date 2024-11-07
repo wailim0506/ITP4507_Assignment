@@ -7,7 +7,7 @@ import java.util.*;
 public class ShowPlayerCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
 
-    public ShowPlayerCommand( CurrentPlayerHolder currentPlayerHolder) {
+    public ShowPlayerCommand(CurrentPlayerHolder currentPlayerHolder) {
         this.currentPlayerHolder = currentPlayerHolder;
     }
 

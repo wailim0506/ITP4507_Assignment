@@ -2,11 +2,10 @@ package Command;
 
 import Player.*;
 import PlayerFactory.*;
-import Exception.*;
 
 import java.util.*;
 
-public class createPlayerCommand implements Command {
+public class CreatePlayerCommand implements Command {
     private Scanner sc;
     private PlayerFactory pf;
     private CurrentPlayerHolder currentPlayerHolder;
@@ -17,7 +16,7 @@ public class createPlayerCommand implements Command {
     private String name;
     private String message;
 
-    public createPlayerCommand(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
+    public CreatePlayerCommand(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                Vector<Player> playerVector, Stack<Command> redoStack,
                                String id, String name) {
         this.sc = sc;

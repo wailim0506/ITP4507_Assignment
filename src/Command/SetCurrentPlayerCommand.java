@@ -4,12 +4,12 @@ import Player.*;
 
 import java.util.*;
 
-public class setCurrentPlayerCommand implements Command{
+public class SetCurrentPlayerCommand implements Command{
     private Vector<Player> playerVector;
     private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
 
-    public setCurrentPlayerCommand( Scanner sc,Vector<Player> playerVector, CurrentPlayerHolder currentPlayerHolder) {
+    public SetCurrentPlayerCommand(Scanner sc, Vector<Player> playerVector, CurrentPlayerHolder currentPlayerHolder) {
         this.playerVector = playerVector;
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
