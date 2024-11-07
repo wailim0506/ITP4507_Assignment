@@ -41,10 +41,10 @@ public class CallHeroSkillCommand implements Command {
         }
     }
     public void undo(){
-
+        //use caretaker undo()
     }
     public void redo(){
-
+        //use caretaker redo()
     }
 
     public String toString(){
