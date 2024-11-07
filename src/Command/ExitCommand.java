@@ -13,7 +13,7 @@ public class ExitCommand implements Command {
         //no need implementation
     }
 
-    public String getMessage(){
+    public String toString(){
         return "";
     }
 }

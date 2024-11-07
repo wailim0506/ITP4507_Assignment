@@ -15,12 +15,12 @@ public class ShowUndoRedoCommand implements Command {
     public void execute() {
         System.out.println("Undo List");
         for (int i = commandStack.size() - 1; i >= 0; i--) {
-            System.out.println(commandStack.get(i).getMessage());
+            System.out.println(commandStack.get(i));
         }
         System.out.println("-- End of undo list --");
         System.out.println("Redo List");
         for (int i = redoStack.size() - 1; i >= 0; i--) {
-            System.out.println(redoStack.get(i).getMessage());
+            System.out.println(redoStack.get(i));
         }
         System.out.println("-- End of redo list --");
     }
@@ -30,7 +30,7 @@ public class ShowUndoRedoCommand implements Command {
     public void redo() {
         //no need implementation
     }
-    public String getMessage(){
+    public String toString(){
         return "";
     }
 }

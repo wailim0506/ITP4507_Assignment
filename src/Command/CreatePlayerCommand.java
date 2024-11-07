@@ -35,7 +35,7 @@ public class CreatePlayerCommand implements Command {
         System.out.println("Player " + p.getPlayerName() + " is created.");
         currentPlayerHolder.setCurrentPlayer(p);
         System.out.println("Current player is changed to " + p.getPlayerID());
-        message = "Create player " + p.getPlayerID() + ", " + p.getPlayerName();
+        message = "Create player, " + p.getPlayerID() + ", " + p.getPlayerName();
         redoStack.clear();
     }
 
@@ -58,7 +58,7 @@ public class CreatePlayerCommand implements Command {
         System.out.println("Current player is changed to " + currentPlayerHolder.getCurrentPlayer().getPlayerID());
     }
 
-    public String getMessage(){
+    public String toString(){
         return message;
     }
 }

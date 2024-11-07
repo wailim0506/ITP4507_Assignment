@@ -27,7 +27,7 @@ public class ChangePlayerNameCommand implements Command {
     public void redo(){
     }
 
-    public String getMessage(){
+    public String toString(){
         return message;
     }
 }

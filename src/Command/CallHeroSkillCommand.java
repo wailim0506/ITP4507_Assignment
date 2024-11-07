@@ -47,7 +47,7 @@ public class CallHeroSkillCommand implements Command {
 
     }
 
-    public String getMessage(){
+    public String toString(){
         return message;
     }
 }

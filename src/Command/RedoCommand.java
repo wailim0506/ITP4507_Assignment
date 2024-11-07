@@ -28,7 +28,7 @@ public class RedoCommand implements Command {
     public void redo() {
         //no need implementation
     }
-    public String getMessage(){
+    public String toString(){
         return "";
     }
 }
