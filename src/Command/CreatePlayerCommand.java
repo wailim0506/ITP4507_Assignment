@@ -55,7 +55,7 @@ public class CreatePlayerCommand implements Command {
         playerVector.add(this.p);
         currentPlayerHolder.setCurrentPlayer(this.p);
         System.out.println("Command (" + message + ") is redone.");
-        System.out.println("Current player is changed to " + currentPlayerHolder.getCurrentPlayer().getPlayerID());
+        System.out.println("The current player is changed to " + currentPlayerHolder.getCurrentPlayer().getPlayerID() + ".");
     }
 
     public String toString(){

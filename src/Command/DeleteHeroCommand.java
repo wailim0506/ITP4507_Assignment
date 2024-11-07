@@ -8,39 +8,26 @@ public class DeleteHeroCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
     private Scanner sc;
     private String message;
+    private Hero heroToDelete;
 
-    public DeleteHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder){
+    public DeleteHeroCommand( CurrentPlayerHolder currentPlayerHolder, Hero heroToDelete) {
         this.currentPlayerHolder = currentPlayerHolder;
-        this.sc = sc;
+        this.heroToDelete = heroToDelete;
     }
 
     public void execute(){
-        if (currentPlayerHolder.getCurrentPlayer() != null){
-            if (currentPlayerHolder.getCurrentPlayer().getHeroes().size() > 0) {
-                System.out.print("Please input hero ID:- ");
-                String heroID = sc.nextLine();
-                boolean found = false;
-                for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
-                    Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
-                    if (hero.getHeroID().equals(heroID)) {
-                        found = true;
-                        System.out.println(hero.getHeroID() + " " + hero.getHeroName() + " is deleted.");
-                        currentPlayerHolder.getCurrentPlayer().getHeroes().remove(i);
-                    }
-                }
-                if (!found) {
-                    System.out.println("Hero not found");
-                }
-            }else{
-                System.out.println("No hero available");
-            }
-        }else{
-            System.out.println("No current player");
-        }
+        System.out.println(heroToDelete.getHeroID() + " " + heroToDelete.getHeroName() + " is deleted.");
+        currentPlayerHolder.getCurrentPlayer().removeHero(heroToDelete);
+        message = "Delete hero, " + heroToDelete.getHeroID();
     }
+
     public void undo(){
+        currentPlayerHolder.getCurrentPlayer().addHero(heroToDelete);
+        System.out.println("Command (" + message + ") is undone.");
     }
     public void redo(){
+        currentPlayerHolder.getCurrentPlayer().removeHero(heroToDelete);
+        System.out.println("Command (" + message + ") is redone.");
     }
 
     public String toString(){

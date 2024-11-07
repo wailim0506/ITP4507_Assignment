@@ -9,46 +9,41 @@ public class AddHeroCommand implements Command {
     private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
     private HashMap<String, HeroFactory> HeroFactory;
+    private HashMap<String, String> HeroTypeHashMap;
     private String message;
+    private String id;
+    private String name;
+    private String heroType;
+    private Hero heroToAdd;
+    private Stack<Command> redoStack;
 
-    public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory) {
+    public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
+                          ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String, String> HeroTypeHashMap) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
+        this.redoStack = redoStack;
+        this.id = id;
+        this.name = name;
+        this.heroType = heroType;
+        this.HeroTypeHashMap =HeroTypeHashMap;
     }
 
     public void execute() {
-        if (currentPlayerHolder.getCurrentPlayer() != null) {
-            String id;
-            String name;
-            try{
-                System.out.print("Please input hero information (id, name):- ");
-                String idName = sc.nextLine();
-                String[] split = idName.split(", ");
-                id = split[0];
-                name = split[1];
-            }catch (Exception e){
-                System.out.println("Invalid input");
-                return;
-            }
-            System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
-            String heroType = sc.nextLine();
-            Hero heroToAdd;
-            try{
-                heroToAdd = HeroFactory.get(heroType).createHero(sc, id, name);
-                currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
-                System.out.println("Hero is added.");
-            }catch (Exception e){
-                System.out.println("Invalid hero type");
-            }
-        }else{
-            System.out.println("No player to add hero");
-        }
-
+        heroToAdd = HeroFactory.get(heroType).createHero(sc, id, name);
+        currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
+        System.out.println("Hero is added.");
+        message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
+        redoStack.clear();
     }
     public void undo() {
+        currentPlayerHolder.getCurrentPlayer().removeHero(heroToAdd);
+        System.out.println("Command (" + message + ") is undone.");
+
     }
     public void redo() {
+        currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
+        System.out.println("Command (" + message + ") is redone.");
     }
 
     public String toString(){

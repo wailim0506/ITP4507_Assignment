@@ -22,6 +22,10 @@ public class Main {
         HeroFactory warriorFactory = new WarriorFactory();
         PlayerFactory pf = new PlayerFactory();
 
+        HashMap<String,String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
+        HeroType.put("1","Warrior");
+        HeroType.put("2","Warlock");
+
         HashMap<String, HeroFactory> HeroFactory = new HashMap<>();
         HeroFactory.put("1", warriorFactory);
         HeroFactory.put("2", warlockFactory);
@@ -32,9 +36,9 @@ public class Main {
         //Command DisplayAllPlayerCommand = new DisplayAllPlayerCommand(playerVector);
         //Command ShowPlayerCommand = new ShowPlayerCommand(currentPlayerHolder);
         Command ChangePlayerNameCommand = new ChangePlayerNameCommand(currentPlayerHolder, sc);
-        Command AddHeroCommand = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory);
+        //Command AddHeroCommand = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory);
         Command CallHeroSkillCommand = new CallHeroSkillCommand(sc,currentPlayerHolder);
-        Command DeleteHeroCommand = new DeleteHeroCommand(sc,currentPlayerHolder);
+        //Command DeleteHeroCommand = new DeleteHeroCommand(sc,currentPlayerHolder);
         //Command UndoCommand = new UndoCommand(commandStack, redoStack);
         //Command RedoCommand = new RedoCommand(commandStack, redoStack);
         //Command ShowUndoRedoCommand = new ShowUndoRedoCommand(commandStack, redoStack);
@@ -47,6 +51,8 @@ public class Main {
         CommandFactory ShowPlayerCommandFactory = new ShowPlayerCommandFactory(currentPlayerHolder);
         CommandFactory DisplayAllPlayerCommandFactory = new DisplayAllPlayerCommandFactory(playerVector);
         CommandFactory SetCurrentPlayerCommandFactory = new SetCurrentPlayerCommandFactory(sc, playerVector, currentPlayerHolder);
+        CommandFactory AddHeroCommandFactory = new AddHeroCommandFactory(sc, currentPlayerHolder, HeroFactory, HeroType, commandStack, redoStack, playerVector);
+        CommandFactory DeleteHeroCommandFactory = new DeleteHeroCommandFactory(sc, currentPlayerHolder, playerVector, commandStack);
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
@@ -67,13 +73,13 @@ public class Main {
                     SetCurrentPlayerCommandFactory.createCommand().execute();
                     break;
                 case "a":
-                    AddHeroCommand.execute();
+                    AddHeroCommandFactory.createCommand().execute();
                     break;
                 case "m":
                     CallHeroSkillCommand.execute();
                     break;
                 case "d":
-                    DeleteHeroCommand.execute();
+                    DeleteHeroCommandFactory.createCommand().execute();
                     break;
                 case "s":
                     ShowPlayerCommandFactory.createCommand().execute();
