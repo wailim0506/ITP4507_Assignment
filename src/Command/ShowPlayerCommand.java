@@ -1,8 +1,6 @@
 package Command;
 
-import Hero.*;
-import Player.*;
-import java.util.*;
+import Product.*;
 
 public class ShowPlayerCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;

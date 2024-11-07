@@ -1,4 +1,4 @@
-package Player;
+package Product;
 
 public class CurrentPlayerHolder {
     private Player currentPlayer;

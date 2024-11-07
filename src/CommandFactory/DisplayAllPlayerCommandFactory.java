@@ -1,6 +1,7 @@
 package CommandFactory;
 import Command.*;
-import Player.*;
+import Product.*;
+
 import java.util.*;
 
 public class DisplayAllPlayerCommandFactory implements CommandFactory {

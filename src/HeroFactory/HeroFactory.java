@@ -1,5 +1,5 @@
 package HeroFactory;
-import Hero.*;
+import Product.*;
 
 import java.util.*;
 

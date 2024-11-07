@@ -1,7 +1,7 @@
 package Command;
 
-import Hero.*;
-import Player.*;
+import Product.*;
+
 import java.util.*;
 
 public class DeleteHeroCommand implements Command {
