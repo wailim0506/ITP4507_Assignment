@@ -1,6 +1,5 @@
 package Command;
-import Product.*;
-
+import Player.*;
 import java.util.*;
 
 public class DisplayAllPlayerCommand implements Command {

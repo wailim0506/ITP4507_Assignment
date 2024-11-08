@@ -1,4 +1,4 @@
-package Product;
+package Hero;
 
 public class Warrior extends Hero {
     private int defencePoint;

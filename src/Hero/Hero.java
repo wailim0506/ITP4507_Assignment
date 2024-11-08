@@ -1,4 +1,4 @@
-package Product;
+package Hero;
 
 public abstract class Hero {
     private String heroID;
