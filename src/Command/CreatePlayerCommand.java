@@ -1,5 +1,6 @@
 package Command;
 
+import Memento.*;
 import Player.*;
 import PlayerFactory.*;
 
@@ -15,10 +16,11 @@ public class CreatePlayerCommand implements Command {
     private String id;
     private String name;
     private String message;
+    private CareTaker careTaker;
 
     public CreatePlayerCommand(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                Vector<Player> playerVector, Stack<Command> redoStack,
-                               String id, String name) {
+                               String id, String name, CareTaker careTaker) {
         this.sc = sc;
         this.pf = pf;
         this.currentPlayerHolder = currentPlayerHolder;
@@ -26,7 +28,7 @@ public class CreatePlayerCommand implements Command {
         this.redoStack = redoStack;
         this.id = id;
         this.name = name;
-
+        this.careTaker = careTaker;
     }
 
     public void execute() {
@@ -37,6 +39,7 @@ public class CreatePlayerCommand implements Command {
         System.out.println("Current player is changed to " + p.getPlayerID());
         message = "Create player, " + p.getPlayerID() + ", " + p.getPlayerName();
         redoStack.clear();
+        careTaker.clearRedoList();
     }
 
     public void undo() {

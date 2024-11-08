@@ -1,5 +1,6 @@
 import CommandFactory.CommandFactory;
 import HeroFactory.*;
+import Memento.*;
 import PlayerFactory.*;
 import Command.*;
 import Player.*;
@@ -15,44 +16,39 @@ public class Main {
         Stack<Command> commandStack = new Stack<Command>(); // Stack to store executed commands
         Stack<Command> redoStack = new Stack<Command>(); // Stack to store all commands to be redo
 
-
         CurrentPlayerHolder currentPlayerHolder = new CurrentPlayerHolder(null); // store current player
 
         HeroFactory warlockFactory = new WarlockFactory();
         HeroFactory warriorFactory = new WarriorFactory();
         PlayerFactory pf = new PlayerFactory();
 
-        HashMap<String,String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
-        HeroType.put("1","Warrior");
-        HeroType.put("2","Warlock");
+        HashMap<String, String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
+        HeroType.put("1", "Warrior");
+        HeroType.put("2", "Warlock");
 
         HashMap<String, HeroFactory> HeroFactory = new HashMap<>();
         HeroFactory.put("1", warriorFactory);
         HeroFactory.put("2", warlockFactory);
 
-        //Command exitCommand = new ExitCommand();
-        //Command createPlayerCommand = new createPlayerCommand(sc,pf, currentPlayerHolder,playerVector,redoStack,redoList);
-        //Command setCurrentPlayerCommand = new SetCurrentPlayerCommand(sc,playerVector, currentPlayerHolder);
-        //Command DisplayAllPlayerCommand = new DisplayAllPlayerCommand(playerVector);
-        //Command ShowPlayerCommand = new ShowPlayerCommand(currentPlayerHolder);
-        Command ChangePlayerNameCommand = new ChangePlayerNameCommand(currentPlayerHolder, sc);
-        //Command AddHeroCommand = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory);
-        Command CallHeroSkillCommand = new CallHeroSkillCommand(sc,currentPlayerHolder);
-        //Command DeleteHeroCommand = new DeleteHeroCommand(sc,currentPlayerHolder);
-        //Command UndoCommand = new UndoCommand(commandStack, redoStack);
-        //Command RedoCommand = new RedoCommand(commandStack, redoStack);
-        //Command ShowUndoRedoCommand = new ShowUndoRedoCommand(commandStack, redoStack);
-//-----------------Command Factory---------------------
-        CommandFactory createPlayerCommandFactory = new CreatePlayerCommandFactory(sc, pf, currentPlayerHolder, playerVector, redoStack, commandStack);
-        CommandFactory exitCommandFactory = new ExitCommandFactory();
-        CommandFactory undoCommandFactory = new UndoCommandFactory(commandStack, redoStack);
-        CommandFactory redoCommandFactory = new RedoCommandFactory(commandStack, redoStack);
-        CommandFactory ShowUndoRedoCommandFactory = new ShowUndoRedoCommandFactory(commandStack, redoStack);
-        CommandFactory ShowPlayerCommandFactory = new ShowPlayerCommandFactory(currentPlayerHolder);
-        CommandFactory DisplayAllPlayerCommandFactory = new DisplayAllPlayerCommandFactory(playerVector);
-        CommandFactory SetCurrentPlayerCommandFactory = new SetCurrentPlayerCommandFactory(sc, playerVector, currentPlayerHolder);
-        CommandFactory AddHeroCommandFactory = new AddHeroCommandFactory(sc, currentPlayerHolder, HeroFactory, HeroType, commandStack, redoStack, playerVector);
-        CommandFactory DeleteHeroCommandFactory = new DeleteHeroCommandFactory(sc, currentPlayerHolder, playerVector, commandStack);
+//        HashMap<String, String> HeroTypeHashMap = new HashMap<>();  //use in add hero command
+//        HeroTypeHashMap.put("H001", HeroType.get("1"));
+
+        CareTaker careTaker = new CareTaker();
+
+        HashMap<String, CommandFactory> commandFactories = new HashMap<>();
+        commandFactories.put("c", new CreatePlayerCommandFactory(sc, pf, currentPlayerHolder, playerVector, redoStack, commandStack, careTaker));
+        commandFactories.put("x", new ExitCommandFactory());
+        commandFactories.put("u", new UndoCommandFactory(commandStack, redoStack));
+        commandFactories.put("r", new RedoCommandFactory(commandStack, redoStack));
+        commandFactories.put("l", new ShowUndoRedoCommandFactory(commandStack, redoStack));
+        commandFactories.put("s", new ShowPlayerCommandFactory(currentPlayerHolder));
+        commandFactories.put("p", new DisplayAllPlayerCommandFactory(playerVector));
+        commandFactories.put("g", new SetCurrentPlayerCommandFactory(sc, playerVector, currentPlayerHolder));
+        commandFactories.put("a", new AddHeroCommandFactory(sc, currentPlayerHolder, HeroFactory, HeroType, commandStack, redoStack, playerVector, careTaker));
+        commandFactories.put("d", new DeleteHeroCommandFactory(sc, currentPlayerHolder, playerVector, commandStack, redoStack, careTaker));
+        commandFactories.put("m", new CallHeroSkillCommandFactory(currentPlayerHolder, sc, commandStack, redoStack, playerVector, careTaker));
+        commandFactories.put("t", new ChangePlayerNameCommandFactory(currentPlayerHolder, sc, playerVector, commandStack, redoStack, careTaker));
+
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
@@ -64,46 +60,52 @@ public class Main {
                         currentPlayerHolder.getCurrentPlayer().getPlayerName());
             }
             System.out.print("Please enter command [ c | g | a | m | d | s | p | t | u | r | l | x ] :-");
-            String input = sc.nextLine();
-            switch (input) {
-                case "c":
-                    createPlayerCommandFactory.createCommand().execute();
-                    break;
-                case "g":
-                    SetCurrentPlayerCommandFactory.createCommand().execute();
-                    break;
-                case "a":
-                    AddHeroCommandFactory.createCommand().execute();
-                    break;
-                case "m":
-                    CallHeroSkillCommand.execute();
-                    break;
-                case "d":
-                    DeleteHeroCommandFactory.createCommand().execute();
-                    break;
-                case "s":
-                    ShowPlayerCommandFactory.createCommand().execute();
-                    break;
-                case "p":
-                    DisplayAllPlayerCommandFactory.createCommand().execute();
-                    break;
-                case "t":
-                    ChangePlayerNameCommand.execute();
-                    break;
-                case "u":
-                    undoCommandFactory.createCommand().execute();
-                    break;
-                case "r":
-                    redoCommandFactory.createCommand().execute();
-                    break;
-                case "l":
-                    ShowUndoRedoCommandFactory.createCommand().execute();
-                    break;
-                case "x":
-                    exitCommandFactory.createCommand().execute();
-                default:
-                    System.out.println("Invalid command");
+            try{
+                String input = sc.nextLine();
+                commandFactories.get(input).createCommand().execute();
+            }catch (Exception e){
+                System.out.println("Invalid command");
             }
+
+//            switch (input) {
+//                case "c":
+//                    createPlayerCommandFactory.createCommand().execute();
+//                    break;
+//                case "g":
+//                    SetCurrentPlayerCommandFactory.createCommand().execute();
+//                    break;
+//                case "a":
+//                    AddHeroCommandFactory.createCommand().execute();
+//                    break;
+//                case "m":
+//                    CallHeroSkillCommandFactory.createCommand().execute();
+//                    break;
+//                case "d":
+//                    DeleteHeroCommandFactory.createCommand().execute();
+//                    break;
+//                case "s":
+//                    ShowPlayerCommandFactory.createCommand().execute();
+//                    break;
+//                case "p":
+//                    DisplayAllPlayerCommandFactory.createCommand().execute();
+//                    break;
+//                case "t":
+//                    ChangePlayerNameCommandFactory.createCommand().execute();
+//                    break;
+//                case "u":
+//                    undoCommandFactory.createCommand().execute();
+//                    break;
+//                case "r":
+//                    redoCommandFactory.createCommand().execute();
+//                    break;
+//                case "l":
+//                    ShowUndoRedoCommandFactory.createCommand().execute();
+//                    break;
+//                case "x":
+//                    exitCommandFactory.createCommand().execute();
+//                default:
+//                    System.out.println("Invalid command");
+//            }
             System.out.println();
         }
     }

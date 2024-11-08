@@ -1,6 +1,7 @@
 package Command;
 
 import Hero.*;
+import Memento.*;
 import Player.*;
 import java.util.*;
 import HeroFactory.*;
@@ -16,9 +17,11 @@ public class AddHeroCommand implements Command {
     private String heroType;
     private Hero heroToAdd;
     private Stack<Command> redoStack;
+    private CareTaker careTaker;
 
     public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
-                          ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String, String> HeroTypeHashMap) {
+                          ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String,
+                            String> HeroTypeHashMap, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
@@ -27,6 +30,7 @@ public class AddHeroCommand implements Command {
         this.name = name;
         this.heroType = heroType;
         this.HeroTypeHashMap =HeroTypeHashMap;
+        this.careTaker = careTaker;
     }
 
     public void execute() {
@@ -35,6 +39,7 @@ public class AddHeroCommand implements Command {
         System.out.println("Hero is added.");
         message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
         redoStack.clear();
+        careTaker.clearRedoList();
     }
     public void undo() {
         currentPlayerHolder.getCurrentPlayer().removeHero(heroToAdd);

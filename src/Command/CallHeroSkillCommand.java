@@ -1,50 +1,47 @@
 package Command;
 
 import Hero.*;
+import Memento.*;
 import Player.*;
 import java.util.*;
 
 public class CallHeroSkillCommand implements Command {
-    private Scanner sc;
-    private CurrentPlayerHolder currentPlayerHolder;
     private String message;
+    private Hero hero;
+    private Stack<Command> redoStack;
+    private CareTaker careTaker;
 
-    public CallHeroSkillCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder) {
-        this.sc = sc;
-        this.currentPlayerHolder = currentPlayerHolder;
+    public CallHeroSkillCommand(Hero hero, Stack<Command> redoStack, CareTaker careTaker){
+        this.hero = hero;
+        this.redoStack = redoStack;
+        this.careTaker = careTaker;
     }
 
     public void execute(){
-        if (currentPlayerHolder.getCurrentPlayer() != null) {
-            if (currentPlayerHolder.getCurrentPlayer().getHeroes().size() > 0) {
-                System.out.print("Please input hero ID:- ");
-                String heroID = sc.nextLine();
-                boolean found = false;
-                for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
-                    Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
-                    if (hero.getHeroID().equals(heroID)) {
-                        found = true;
-                        hero.callSkill();
-                        System.out.println(hero.getHeroID() + " " + hero.getHeroName() + "'s attributes are changed to:");
-                        hero.showHeroStatus();
-                        break;
-                    }
-                }
-                if (!found) {
-                    System.out.println("Hero not found");
-                }
-            }else{
-                System.out.println("No hero available");
-            }
-        }else{
-            System.out.println("No player to call hero skills");
+        careTaker.saveHero(hero);
+        hero.callSkill();
+        System.out.println(hero.getHeroID() + " " + hero.getHeroName() + "'s attributes are changed to:");
+        hero.showHeroStatus();
+        redoStack.clear();
+        careTaker.clearRedoList();
+
+        if(hero instanceof Warlock){
+            message = "Call hero skill, " + hero.getHeroID() + ", " + hero.getHeroName() + ", Warlock, Hp: "+hero.getHp() + ", " +
+                    "Damage: "+hero.getDamage() + ", Mp: "+((Warlock) hero).getMp();
+        }else if(hero instanceof Warrior){
+            message = "Call hero skill, " + hero.getHeroID() + ", " + hero.getHeroName() + ", Warrior, Hp: "+hero.getHp() + ", " +
+                    "Damage: "+hero.getDamage() + ", Defence Point: "+((Warrior) hero).getDefencePoint();
         }
     }
     public void undo(){
-        //use caretaker undo()
+        careTaker.saveRedoHero(hero);
+        careTaker.undo();
+        System.out.println("Command (" + message + ") is undone.");
     }
     public void redo(){
-        //use caretaker redo()
+        careTaker.saveHero(hero);
+        careTaker.redo();
+        System.out.println("Command (" + message + ") is redone.");
     }
 
     public String toString(){

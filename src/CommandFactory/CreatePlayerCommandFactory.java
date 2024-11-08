@@ -1,5 +1,6 @@
 package CommandFactory;
 import Command.*;
+import Memento.*;
 import Player.CurrentPlayerHolder;
 import Player.Player;
 import PlayerFactory.PlayerFactory;
@@ -17,15 +18,18 @@ public class CreatePlayerCommandFactory implements CommandFactory {
     private Vector<Player> playerVector;
     private Stack<Command> redoStack;// Stack to store all commands to be redo
     private Stack<Command> commandStack;  // Stack to store executed commands
+    private CareTaker careTaker;
 
     public CreatePlayerCommandFactory(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
-                                      Vector<Player> playerVector, Stack<Command> redoStack, Stack<Command> commandStack) {
+                                      Vector<Player> playerVector, Stack<Command> redoStack, Stack<Command> commandStack,
+                                      CareTaker careTaker) {
         this.sc = sc;
         this.pf = pf;
         this.currentPlayerHolder = currentPlayerHolder;
         this.playerVector = playerVector;
         this.redoStack = redoStack;
         this.commandStack = commandStack;
+        this.careTaker = careTaker;
     }
 
     public Command createCommand() {
@@ -46,7 +50,7 @@ public class CreatePlayerCommandFactory implements CommandFactory {
 
         System.out.print("Player Name:- ");
         String name = sc.nextLine();
-        Command c = new CreatePlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name);
+        Command c = new CreatePlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name,careTaker);
         commandStack.push(c);
         return c;
     }

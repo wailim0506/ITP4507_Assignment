@@ -1,27 +1,26 @@
 package CommandFactory;
-
 import Command.*;
-import Hero.Hero;
-import Memento.CareTaker;
+import Hero.*;
 import Player.*;
-
+import Memento.*;
 import java.util.*;
 
-public class DeleteHeroCommandFactory implements CommandFactory {
-    private Scanner sc;
+public class CallHeroSkillCommandFactory implements CommandFactory {
     private CurrentPlayerHolder currentPlayerHolder;
-    private Vector<Player> playerVector;
+    private Scanner sc;
     private Stack<Command> commandStack;
     private Stack<Command> redoStack;
+    private Vector<Player> playerVector;
     private CareTaker careTaker;
 
-    public DeleteHeroCommandFactory(Scanner sc, CurrentPlayerHolder currentPlayerHolder, Vector<Player> playerVector,
-                                    Stack<Command> commandStack, Stack<Command> redoStack, CareTaker careTaker) {
-        this.sc = sc;
+    public CallHeroSkillCommandFactory(CurrentPlayerHolder currentPlayerHolder, Scanner sc,
+                                       Stack<Command> commandStack, Stack<Command> redoStack,
+                                       Vector<Player> playerVector, CareTaker careTaker) {
         this.currentPlayerHolder = currentPlayerHolder;
-        this.playerVector = playerVector;
+        this.sc = sc;
         this.commandStack = commandStack;
         this.redoStack = redoStack;
+        this.playerVector = playerVector;
         this.careTaker = careTaker;
     }
 
@@ -33,7 +32,7 @@ public class DeleteHeroCommandFactory implements CommandFactory {
                 for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
                     Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
                     if (hero.getHeroID().equals(heroID)) {
-                        Command c =  new DeleteHeroCommand(currentPlayerHolder, hero,redoStack,careTaker);
+                        Command c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
                         commandStack.push(c);
                         return c;
                     }
@@ -43,14 +42,14 @@ public class DeleteHeroCommandFactory implements CommandFactory {
                 System.out.println();
                 return new ShowPlayerCommand(currentPlayerHolder);
 
-            } else {
+            }else{
                 System.out.println("No hero available");
                 //because no hero for current player, show the user they have no hero
                 System.out.println();
                 return new ShowPlayerCommand(currentPlayerHolder);
             }
-        } else {
-            System.out.println("No current player");
+        }else{
+            System.out.println("No player to call hero skills");
             //return a command with no undo/redo to avoid error
             return new DisplayAllPlayerCommand(playerVector);
         }

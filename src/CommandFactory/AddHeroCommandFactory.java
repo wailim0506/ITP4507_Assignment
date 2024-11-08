@@ -1,5 +1,6 @@
 package CommandFactory;
 import Command.*;
+import Memento.*;
 import Player.*;
 import HeroFactory.*;
 import java.util.*;
@@ -14,10 +15,11 @@ public class AddHeroCommandFactory implements CommandFactory {
     private Stack<Command> commandStack;
     private Stack<Command> redoStack;
     private Vector<Player> playerVector;
+    private CareTaker careTaker;
 
     public AddHeroCommandFactory(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory,
                                  HashMap<String, String> HeroTypeHashMap,Stack<Command> commandStack, Stack<Command> redoStack,
-                                 Vector<Player> playerVector) {
+                                 Vector<Player> playerVector, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
@@ -25,6 +27,7 @@ public class AddHeroCommandFactory implements CommandFactory {
         this.commandStack = commandStack;
         this.redoStack = redoStack;
         this.playerVector = playerVector;
+        this.careTaker = careTaker;
     }
 
     public Command createCommand() {
@@ -48,7 +51,7 @@ public class AddHeroCommandFactory implements CommandFactory {
                 System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
                 String heroType = sc.nextLine();
                 if (HeroFactory.get(heroType) != null){
-                    Command c =  new AddHeroCommand(sc,currentPlayerHolder,HeroFactory,redoStack,id,name,heroType,HeroTypeHashMap);
+                    Command c =  new AddHeroCommand(sc,currentPlayerHolder,HeroFactory,redoStack,id,name,heroType,HeroTypeHashMap,careTaker);
                     commandStack.push(c);
                     return c;
                 }else{

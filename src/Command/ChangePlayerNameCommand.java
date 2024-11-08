@@ -1,32 +1,38 @@
 package Command;
+import Memento.CareTaker;
 import Player.*;
 import java.util.*;
 
 public class ChangePlayerNameCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
-    private Scanner sc;
     private String message;
+    private String newName;
+    private Stack<Command> redoStack;
+    private CareTaker careTaker;
 
-    public ChangePlayerNameCommand(CurrentPlayerHolder currentPlayerHolder, Scanner sc) {
+    public ChangePlayerNameCommand(CurrentPlayerHolder currentPlayerHolder, String newName, Stack<Command> redoStack, CareTaker careTaker){
         this.currentPlayerHolder = currentPlayerHolder;
-        this.sc = sc;
+        this.newName = newName;
+        this.redoStack = redoStack;
+        this.careTaker = careTaker;
     }
 
     public void execute(){
-        if (currentPlayerHolder.getCurrentPlayer() != null) {
-            System.out.print("Please input new name of the current player:- ");
-            String newName = sc.nextLine();
-            currentPlayerHolder.getCurrentPlayer().setPlayerName(newName);
-            System.out.println("Player's name is updated.");
-        }else{
-            System.out.println("No player to change name");
-        }
+        careTaker.savePlayer(currentPlayerHolder.getCurrentPlayer());
+        currentPlayerHolder.getCurrentPlayer().setPlayerName(newName);
+        redoStack.clear();
+        careTaker.clearRedoList();
+        message = "Change player's name, " + currentPlayerHolder.getCurrentPlayer().getPlayerID() + ", " + newName;
     }
     public void undo(){
-        //use caretaker undo()
+        careTaker.saveRedoPlayer(currentPlayerHolder.getCurrentPlayer());
+        careTaker.undo();
+        System.out.println("Command (" + message + ") is undone.");
     }
     public void redo(){
-        //use caretaker redo()
+        careTaker.savePlayer(currentPlayerHolder.getCurrentPlayer());
+        careTaker.redo();
+        System.out.println("Command (" + message + ") is redone.");
     }
 
     public String toString(){
