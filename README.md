@@ -10,7 +10,7 @@ defence and Warlock target on magic damage. Each player in this game can play mo
 Currently, this game only has Warrior and Warlock. In the coming future, this game will be extended to
 support more kinds of hero such as healer. The following is the simplified class diagram of existing data
 maintained by FW.</p>
-<img width="737" alt="螢幕截圖 2024-11-08 18 14 12" src="https://github.com/user-attachments/assets/c55a2c9b-dbe0-4197-884c-a6a1b106e8a8">
+<img width="737" alt="classDiagram" src="https://github.com/user-attachments/assets/c55a2c9b-dbe0-4197-884c-a6a1b106e8a8">
 <p style="font-size: 15px">As a system analyst of the Company, you are required to design and develop FW. You can get the source
 codes of above classes from Moodle.
 FW should provide the following functions:</p>

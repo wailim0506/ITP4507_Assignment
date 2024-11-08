@@ -28,9 +28,6 @@ public class Main {
         HeroFactory.put("1", warriorFactory);
         HeroFactory.put("2", warlockFactory);
 
-//        HashMap<String, String> HeroTypeHashMap = new HashMap<>();  //use in add hero command
-//        HeroTypeHashMap.put("H001", HeroType.get("1"));
-
         CareTaker careTaker = new CareTaker();
 
         HashMap<String, CommandFactory> commandFactories = new HashMap<>();
