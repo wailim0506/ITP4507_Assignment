@@ -60,52 +60,13 @@ public class Main {
                         currentPlayerHolder.getCurrentPlayer().getPlayerName());
             }
             System.out.print("Please enter command [ c | g | a | m | d | s | p | t | u | r | l | x ] :-");
+
             try{
                 String input = sc.nextLine();
                 commandFactories.get(input).createCommand().execute();
             }catch (Exception e){
                 System.out.println("Invalid command");
             }
-
-//            switch (input) {
-//                case "c":
-//                    createPlayerCommandFactory.createCommand().execute();
-//                    break;
-//                case "g":
-//                    SetCurrentPlayerCommandFactory.createCommand().execute();
-//                    break;
-//                case "a":
-//                    AddHeroCommandFactory.createCommand().execute();
-//                    break;
-//                case "m":
-//                    CallHeroSkillCommandFactory.createCommand().execute();
-//                    break;
-//                case "d":
-//                    DeleteHeroCommandFactory.createCommand().execute();
-//                    break;
-//                case "s":
-//                    ShowPlayerCommandFactory.createCommand().execute();
-//                    break;
-//                case "p":
-//                    DisplayAllPlayerCommandFactory.createCommand().execute();
-//                    break;
-//                case "t":
-//                    ChangePlayerNameCommandFactory.createCommand().execute();
-//                    break;
-//                case "u":
-//                    undoCommandFactory.createCommand().execute();
-//                    break;
-//                case "r":
-//                    redoCommandFactory.createCommand().execute();
-//                    break;
-//                case "l":
-//                    ShowUndoRedoCommandFactory.createCommand().execute();
-//                    break;
-//                case "x":
-//                    exitCommandFactory.createCommand().execute();
-//                default:
-//                    System.out.println("Invalid command");
-//            }
             System.out.println();
         }
     }
