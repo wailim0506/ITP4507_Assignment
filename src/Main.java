@@ -1,11 +1,9 @@
-import CommandFactory.CommandFactory;
+import CommandFactory.*;
 import HeroFactory.*;
 import Memento.*;
 import PlayerFactory.*;
 import Command.*;
 import Player.*;
-import CommandFactory.*;
-
 import java.util.*;
 
 public class Main {
@@ -48,7 +46,6 @@ public class Main {
         commandFactories.put("d", new DeleteHeroCommandFactory(sc, currentPlayerHolder, playerVector, commandStack, redoStack, careTaker));
         commandFactories.put("m", new CallHeroSkillCommandFactory(currentPlayerHolder, sc, commandStack, redoStack, playerVector, careTaker));
         commandFactories.put("t", new ChangePlayerNameCommandFactory(currentPlayerHolder, sc, playerVector, commandStack, redoStack, careTaker));
-
 
         while (true) {
             System.out.println("Fantastic World (FW) \n" +
