@@ -1,8 +1,7 @@
 package CommandFactory;
 
 import Command.*;
-import Hero.Hero;
-import Player.*;
+import Product.*;
 
 import java.util.*;
 

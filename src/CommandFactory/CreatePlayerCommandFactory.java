@@ -1,13 +1,12 @@
 package CommandFactory;
 import Command.*;
-import Player.CurrentPlayerHolder;
-import Player.Player;
-import PlayerFactory.PlayerFactory;
+import Product.*;
+
+import PlayerFactory.*;
 import Exception.*;
 
-import java.util.Scanner;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
+
 
 public class CreatePlayerCommandFactory implements CommandFactory {
 

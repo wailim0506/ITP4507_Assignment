@@ -1,6 +1,6 @@
 package Command;
 
-import Player.*;
+import Product.*;
 import PlayerFactory.*;
 
 import java.util.*;

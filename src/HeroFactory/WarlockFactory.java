@@ -1,6 +1,6 @@
 package HeroFactory;
 
-import Hero.*;
+import Product.*;
 import java.util.*;
 
 public class WarlockFactory implements HeroFactory {

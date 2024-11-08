@@ -1,9 +1,10 @@
-import CommandFactory.CommandFactory;
+import CommandFactory.*;
+import Product.*;
+import Product.Player;
 import HeroFactory.*;
 import PlayerFactory.*;
 import Command.*;
-import Player.*;
-import CommandFactory.*;
+
 
 import java.util.*;
 

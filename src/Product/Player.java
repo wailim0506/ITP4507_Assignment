@@ -1,6 +1,4 @@
-package Player;
-
-import Hero.*;
+package Product;
 
 import java.util.Vector;
 
