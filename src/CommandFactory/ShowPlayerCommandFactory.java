@@ -1,7 +1,6 @@
 package CommandFactory;
 import Command.*;
-import Product.*;
-
+import Player.*;
 public class ShowPlayerCommandFactory implements CommandFactory {
     private CurrentPlayerHolder currentPlayerHolder;
 

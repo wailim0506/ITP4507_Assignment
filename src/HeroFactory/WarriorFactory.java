@@ -1,6 +1,6 @@
 package HeroFactory;
 
-import Product.*;
+import Hero.*;
 import java.util.*;
 public class WarriorFactory implements HeroFactory {
     public Hero createHero(Scanner sc, String id, String name) {

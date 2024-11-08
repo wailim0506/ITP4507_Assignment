@@ -1,7 +1,7 @@
 package Command;
 
-import Product.*;
-
+import Hero.*;
+import Player.*;
 import java.util.*;
 import HeroFactory.*;
 
