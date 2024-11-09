@@ -1,8 +1,11 @@
 package CommandFactory;
+
 import Command.*;
 import Memento.*;
 import Player.*;
 import HeroFactory.*;
+import Hero.*;
+
 import java.util.*;
 
 public class AddHeroCommandFactory implements CommandFactory {
@@ -18,7 +21,7 @@ public class AddHeroCommandFactory implements CommandFactory {
     private CareTaker careTaker;
 
     public AddHeroCommandFactory(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory,
-                                 HashMap<String, String> HeroTypeHashMap,Stack<Command> commandStack, Stack<Command> redoStack,
+                                 HashMap<String, String> HeroTypeHashMap, Stack<Command> commandStack, Stack<Command> redoStack,
                                  Vector<Player> playerVector, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
@@ -33,32 +36,44 @@ public class AddHeroCommandFactory implements CommandFactory {
     public Command createCommand() {
         if (currentPlayerHolder.getCurrentPlayer() != null) {
             //check hero id and name input below, if invalid, ask again until correct, avoid creating command with wrong input
-            while(true){
-                try{
+            while (true) {
+                try {
                     System.out.print("Please input hero information (id, name):- ");
                     String idName = sc.nextLine();
                     String[] split = idName.split(", ");
                     id = split[0];
                     name = split[1];
+                    //check exising hero id for current player
+                    boolean sameHeroID = false;
+                    for (Hero h : currentPlayerHolder.getCurrentPlayer().getHeroes()) {
+                        if (h.getHeroID().equals(id)) {
+                            System.out.println("Hero ID already exist");
+                            sameHeroID = true;
+                            break;
+                        }
+                    }
+                    if (sameHeroID){
+                        continue;
+                    }
                     break;
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Invalid input");
                 }
             }
 
             //check hero type input below, if invalid, ask again until correct, avoid creating command with wrong input
-            while (true){
+            while (true) {
                 System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
                 String heroType = sc.nextLine();
-                if (HeroFactory.get(heroType) != null){
-                    Command c =  new AddHeroCommand(sc,currentPlayerHolder,HeroFactory,redoStack,id,name,heroType,HeroTypeHashMap,careTaker,playerVector);
+                if (HeroFactory.get(heroType) != null) {
+                    Command c = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory, redoStack, id, name, heroType, HeroTypeHashMap, careTaker, playerVector);
                     commandStack.push(c);
                     return c;
-                }else{
+                } else {
                     System.out.println("Invalid hero type");
                 }
             }
-        }else{
+        } else {
             System.out.println("No player to add hero");
             //return a command with no undo/redo to avoid error
             return new DisplayAllPlayerCommand(playerVector);
