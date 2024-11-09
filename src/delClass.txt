@@ -1,0 +1,8 @@
+del Command\*.class
+del CommandFactory\*.class
+del Exception\*.class
+del Hero\*.class
+del HeroFactory\*.class
+del Memento\*.class
+del Player\*.class
+del PlayerFactory\*.class

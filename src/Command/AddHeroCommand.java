@@ -18,10 +18,12 @@ public class AddHeroCommand implements Command {
     private Hero heroToAdd;
     private Stack<Command> redoStack;
     private CareTaker careTaker;
+    private Vector<Player> playerVector;
+    private Player playerToAdd; //store the player that the hero is added to, for undo and redo
 
     public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
                           ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String,
-                            String> HeroTypeHashMap, CareTaker careTaker) {
+                            String> HeroTypeHashMap, CareTaker careTaker, Vector<Player> playerVector) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
@@ -31,28 +33,30 @@ public class AddHeroCommand implements Command {
         this.heroType = heroType;
         this.HeroTypeHashMap =HeroTypeHashMap;
         this.careTaker = careTaker;
+        this.playerVector = playerVector;
     }
 
     public void execute() {
         heroToAdd = HeroFactory.get(heroType).createHero(sc, id, name);
         currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
+        playerToAdd = currentPlayerHolder.getCurrentPlayer();
         System.out.println("Hero is added.");
         message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
         redoStack.clear();
         careTaker.clearRedoList();
     }
     public void undo() {
-        currentPlayerHolder.getCurrentPlayer().removeHero(heroToAdd);
+        playerToAdd.removeHero(heroToAdd);
         System.out.println("Command (" + message + ") is undone.");
 
     }
     public void redo() {
-        currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
+        // currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
+        playerToAdd.addHero(heroToAdd);
         System.out.println("Command (" + message + ") is redone.");
     }
 
     public String toString(){
         return message;
     }
-
 }

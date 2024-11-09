@@ -1,0 +1,2 @@
+cmd < delClass.txt
+pause

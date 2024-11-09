@@ -12,6 +12,7 @@ public class DeleteHeroCommand implements Command {
     private Hero heroToDelete;
     private Stack<Command> redoStack;
     private CareTaker careTaker;
+    private Player playerToDelete;
 
     public DeleteHeroCommand( CurrentPlayerHolder currentPlayerHolder, Hero heroToDelete, Stack<Command> redoStack,
                               CareTaker careTaker){
@@ -26,7 +27,7 @@ public class DeleteHeroCommand implements Command {
         System.out.println(heroToDelete.getHeroID() + " " + heroToDelete.getHeroName() + " is deleted.");
         currentPlayerHolder.getCurrentPlayer().removeHero(heroToDelete);
         message = "Delete hero, " + heroToDelete.getHeroID();
-
+        playerToDelete = currentPlayerHolder.getCurrentPlayer();
         //Maybe not need,
         redoStack.clear();
         careTaker.clearRedoList();
@@ -34,11 +35,13 @@ public class DeleteHeroCommand implements Command {
     }
 
     public void undo(){
-        currentPlayerHolder.getCurrentPlayer().addHero(heroToDelete);
+        //currentPlayerHolder.getCurrentPlayer().addHero(heroToDelete);
+        playerToDelete.addHero(heroToDelete);
         System.out.println("Command (" + message + ") is undone.");
     }
     public void redo(){
-        currentPlayerHolder.getCurrentPlayer().removeHero(heroToDelete);
+        //currentPlayerHolder.getCurrentPlayer().removeHero(heroToDelete);
+        playerToDelete.removeHero(heroToDelete);
         System.out.println("Command (" + message + ") is redone.");
     }
 

@@ -51,7 +51,7 @@ public class AddHeroCommandFactory implements CommandFactory {
                 System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
                 String heroType = sc.nextLine();
                 if (HeroFactory.get(heroType) != null){
-                    Command c =  new AddHeroCommand(sc,currentPlayerHolder,HeroFactory,redoStack,id,name,heroType,HeroTypeHashMap,careTaker);
+                    Command c =  new AddHeroCommand(sc,currentPlayerHolder,HeroFactory,redoStack,id,name,heroType,HeroTypeHashMap,careTaker,playerVector);
                     commandStack.push(c);
                     return c;
                 }else{

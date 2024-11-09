@@ -1,0 +1,2 @@
+cmd < testcase.txt
+pause
