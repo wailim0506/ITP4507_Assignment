@@ -15,6 +15,10 @@ public class HeroMemento implements Memento {
         this.heroName = hero.getHeroName();
         this.hp = hero.getHp();
         this.damage = hero.getDamage();
+
+        String heroType = hero.getClass().getSimpleName();
+        System.out.println(heroType);
+
         if (hero instanceof Warlock) {
             this.mp = ((Warlock) hero).getMp();
         }else if(hero instanceof Warrior){

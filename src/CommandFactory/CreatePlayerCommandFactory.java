@@ -35,8 +35,18 @@ public class CreatePlayerCommandFactory implements CommandFactory {
     public Command createCommand() {
         String id;
         try {
-            System.out.print("Player ID:- ");
-            id = sc.nextLine();
+            while (true){
+                System.out.print("Player ID:- ");
+                id = sc.nextLine();
+                if (id.equals("")) {
+                    System.out.println("Player ID cannot be empty.");
+                    continue;
+                }
+                else{
+                    break;
+                }
+            }
+
             for (int i = 0; i < playerVector.size(); i++) {
                 if (playerVector.get(i).getPlayerID().equals(id)) {
                     throw new PlayerIDExistException();
@@ -48,8 +58,18 @@ public class CreatePlayerCommandFactory implements CommandFactory {
             return new DisplayAllPlayerCommand(playerVector);
         }
 
-        System.out.print("Player Name:- ");
-        String name = sc.nextLine();
+        String name="";
+        while(true){
+            System.out.print("Player Name:- ");
+            name = sc.nextLine();
+            if(name.equals("")) {
+                System.out.println("Player name cannot be empty.");
+                continue;
+            }else{
+                break;
+            }
+        }
+
         Command c = new CreatePlayerCommand(pf, currentPlayerHolder, playerVector, redoStack,id,name,careTaker);
         commandStack.push(c);
         return c;
