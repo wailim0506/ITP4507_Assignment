@@ -27,7 +27,7 @@ public class SetCurrentPlayerCommand implements Command{
                 }
 
                 if (i == playerVector.size() - 1) {
-                    System.out.println("Player " + id + " is not found");
+                    System.out.println("Player " + id + " is not found!!");
                 }
             }
         } else {
