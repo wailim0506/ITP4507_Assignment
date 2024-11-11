@@ -19,9 +19,5 @@ public class PlayerMemento implements Memento {
 
     public void restore() {
         player.setPlayerName(playerName);
-//        player.getHeroes().clear();
-//        for (int i = 0; i < heroes.size(); i++) {
-//            player.addHero(heroes.get(i));
-//        }
     }
 }

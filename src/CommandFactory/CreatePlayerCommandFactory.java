@@ -50,7 +50,7 @@ public class CreatePlayerCommandFactory implements CommandFactory {
 
         System.out.print("Player Name:- ");
         String name = sc.nextLine();
-        Command c = new CreatePlayerCommand(sc, pf, currentPlayerHolder, playerVector, redoStack,id,name,careTaker);
+        Command c = new CreatePlayerCommand(pf, currentPlayerHolder, playerVector, redoStack,id,name,careTaker);
         commandStack.push(c);
         return c;
     }

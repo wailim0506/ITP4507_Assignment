@@ -7,7 +7,6 @@ import PlayerFactory.*;
 import java.util.*;
 
 public class CreatePlayerCommand implements Command {
-    private Scanner sc;
     private PlayerFactory pf;
     private CurrentPlayerHolder currentPlayerHolder;
     private Vector<Player> playerVector;
@@ -18,10 +17,9 @@ public class CreatePlayerCommand implements Command {
     private String message;
     private CareTaker careTaker;
 
-    public CreatePlayerCommand(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
+    public CreatePlayerCommand(PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                Vector<Player> playerVector, Stack<Command> redoStack,
                                String id, String name, CareTaker careTaker) {
-        this.sc = sc;
         this.pf = pf;
         this.currentPlayerHolder = currentPlayerHolder;
         this.playerVector = playerVector;

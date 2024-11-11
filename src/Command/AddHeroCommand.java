@@ -18,12 +18,11 @@ public class AddHeroCommand implements Command {
     private Hero heroToAdd;
     private Stack<Command> redoStack;
     private CareTaker careTaker;
-    private Vector<Player> playerVector;
     private Player playerToAdd; //store the player that the hero is added to, for undo and redo
 
     public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
                           ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String,
-                            String> HeroTypeHashMap, CareTaker careTaker, Vector<Player> playerVector) {
+                            String> HeroTypeHashMap, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
@@ -33,7 +32,6 @@ public class AddHeroCommand implements Command {
         this.heroType = heroType;
         this.HeroTypeHashMap =HeroTypeHashMap;
         this.careTaker = careTaker;
-        this.playerVector = playerVector;
     }
 
     public void execute() {

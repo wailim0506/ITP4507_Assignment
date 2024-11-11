@@ -7,7 +7,6 @@ import java.util.*;
 
 public class DeleteHeroCommand implements Command {
     private CurrentPlayerHolder currentPlayerHolder;
-    private Scanner sc;
     private String message;
     private Hero heroToDelete;
     private Stack<Command> redoStack;
