@@ -10,7 +10,6 @@ public class AddHeroCommand implements Command {
     private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
     private HashMap<String, HeroFactory> HeroFactory;
-    private HashMap<String, String> HeroTypeHashMap;
     private String message;
     private String id;
     private String name;
@@ -21,8 +20,7 @@ public class AddHeroCommand implements Command {
     private Player playerToAdd; //store the player that the hero is added to, for undo and redo
 
     public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
-                          ,Stack<Command> redoStack, String id, String name,String heroType,HashMap<String,
-                            String> HeroTypeHashMap, CareTaker careTaker) {
+                          ,Stack<Command> redoStack, String id, String name,String heroType, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
@@ -30,7 +28,6 @@ public class AddHeroCommand implements Command {
         this.id = id;
         this.name = name;
         this.heroType = heroType;
-        this.HeroTypeHashMap =HeroTypeHashMap;
         this.careTaker = careTaker;
     }
 
@@ -39,7 +36,8 @@ public class AddHeroCommand implements Command {
         currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
         playerToAdd = currentPlayerHolder.getCurrentPlayer();
         System.out.println("Hero is added.");
-        message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
+//        message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
+        message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + heroToAdd.getClass().getSimpleName();
         redoStack.clear();
         careTaker.clearRedoList();
     }

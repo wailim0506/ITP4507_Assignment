@@ -20,9 +20,9 @@ public class Main {
         HeroFactory warriorFactory = new WarriorFactory();
         PlayerFactory pf = new PlayerFactory();
 
-        HashMap<String, String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
-        HeroType.put("1", "Warrior");
-        HeroType.put("2", "Warlock");
+//        HashMap<String, String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
+//        HeroType.put("1", "Warrior");
+//        HeroType.put("2", "Warlock");
 
         HashMap<String, HeroFactory> HeroFactory = new HashMap<>();
         HeroFactory.put("1", warriorFactory);
@@ -39,7 +39,7 @@ public class Main {
         commandFactories.put("s", new ShowPlayerCommandFactory(currentPlayerHolder));
         commandFactories.put("p", new DisplayAllPlayerCommandFactory(playerVector));
         commandFactories.put("g", new SetCurrentPlayerCommandFactory(sc, playerVector, currentPlayerHolder));
-        commandFactories.put("a", new AddHeroCommandFactory(sc, currentPlayerHolder, HeroFactory, HeroType, commandStack, redoStack, playerVector, careTaker));
+        commandFactories.put("a", new AddHeroCommandFactory(sc, currentPlayerHolder, HeroFactory, commandStack, redoStack, playerVector, careTaker));
         commandFactories.put("d", new DeleteHeroCommandFactory(sc, currentPlayerHolder, playerVector, commandStack, redoStack, careTaker));
         commandFactories.put("m", new CallHeroSkillCommandFactory(currentPlayerHolder, sc, commandStack, redoStack, playerVector, careTaker));
         commandFactories.put("t", new ChangePlayerNameCommandFactory(currentPlayerHolder, sc, playerVector, commandStack, redoStack, careTaker));

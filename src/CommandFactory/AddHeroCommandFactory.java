@@ -14,19 +14,17 @@ public class AddHeroCommandFactory implements CommandFactory {
     private String id;
     private String name;
     private HashMap<String, HeroFactory> HeroFactory;
-    private HashMap<String, String> HeroTypeHashMap;
     private Stack<Command> commandStack;
     private Stack<Command> redoStack;
     private Vector<Player> playerVector;
     private CareTaker careTaker;
 
     public AddHeroCommandFactory(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory,
-                                 HashMap<String, String> HeroTypeHashMap, Stack<Command> commandStack, Stack<Command> redoStack,
+                                  Stack<Command> commandStack, Stack<Command> redoStack,
                                  Vector<Player> playerVector, CareTaker careTaker) {
         this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
-        this.HeroTypeHashMap = HeroTypeHashMap;
         this.commandStack = commandStack;
         this.redoStack = redoStack;
         this.playerVector = playerVector;
@@ -66,7 +64,7 @@ public class AddHeroCommandFactory implements CommandFactory {
                 System.out.print("Hero Type (1 = Warrior | 2 = Warlock ):- ");
                 String heroType = sc.nextLine();
                 if (HeroFactory.get(heroType) != null) {
-                    Command c = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory, redoStack, id, name, heroType, HeroTypeHashMap, careTaker);
+                    Command c = new AddHeroCommand(sc, currentPlayerHolder, HeroFactory, redoStack, id, name, heroType,careTaker);
                     commandStack.push(c);
                     return c;
                 } else {
