@@ -36,7 +36,6 @@ public class AddHeroCommand implements Command {
         currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
         playerToAdd = currentPlayerHolder.getCurrentPlayer();
         System.out.println("Hero is added.");
-//        message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + HeroTypeHashMap.get(heroType);
         message = "Add hero, " + heroToAdd.getHeroID() + ", " + heroToAdd.getHeroName() + ", " + heroToAdd.getClass().getSimpleName();
         redoStack.clear();
         careTaker.clearRedoList();
