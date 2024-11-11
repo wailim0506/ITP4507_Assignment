@@ -25,13 +25,12 @@ public class CallHeroSkillCommand implements Command {
         redoStack.clear();
         careTaker.clearRedoList();
 
-        message = "Call hero skill, " + hero.getHeroID() + ", " + hero.getHeroName() + ", Warlock, Hp: "+hero.getHp() + ", " +
-                "Damage: "+hero.getDamage();
-
         if(hero instanceof Warlock){
-            message +=  ", Mp: "+((Warlock) hero).getMp();
+            message = "Call hero skill, " + hero.getHeroID() + ", " + hero.getHeroName() + ", Warlock, Hp: "+hero.getHp() + ", " +
+                    "Damage: "+hero.getDamage() + ", Mp: "+((Warlock) hero).getMp();
         }else if(hero instanceof Warrior){
-            message +=  ", Defence Point: "+((Warrior) hero).getDefencePoint();
+            message = "Call hero skill, " + hero.getHeroID() + ", " + hero.getHeroName() + ", Warrior, Hp: "+hero.getHp() + ", " +
+                    "Damage: "+hero.getDamage() + ", Defence Point: "+((Warrior) hero).getDefencePoint();
         }
     }
     public void undo(){
