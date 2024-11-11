@@ -18,11 +18,7 @@ public class Main {
 
         HeroFactory warlockFactory = new WarlockFactory();
         HeroFactory warriorFactory = new WarriorFactory();
-        PlayerFactory pf = new PlayerFactory();
-
-//        HashMap<String, String> HeroType = new HashMap<>(); //for add hero command toString to print hero type base on user input
-//        HeroType.put("1", "Warrior");
-//        HeroType.put("2", "Warlock");
+        UserFactory pf = new PlayerFactory();
 
         HashMap<String, HeroFactory> HeroFactory = new HashMap<>();
         HeroFactory.put("1", warriorFactory);

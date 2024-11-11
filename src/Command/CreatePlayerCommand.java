@@ -7,7 +7,7 @@ import PlayerFactory.*;
 import java.util.*;
 
 public class CreatePlayerCommand implements Command {
-    private PlayerFactory pf;
+    private UserFactory pf;
     private CurrentPlayerHolder currentPlayerHolder;
     private Vector<Player> playerVector;
     private Stack<Command> redoStack; // Stack to store all commands to be redo
@@ -17,7 +17,7 @@ public class CreatePlayerCommand implements Command {
     private String message;
     private CareTaker careTaker;
 
-    public CreatePlayerCommand(PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
+    public CreatePlayerCommand(UserFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                Vector<Player> playerVector, Stack<Command> redoStack,
                                String id, String name, CareTaker careTaker) {
         this.pf = pf;

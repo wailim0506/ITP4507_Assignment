@@ -1,9 +1,9 @@
 package CommandFactory;
 import Command.*;
 import Memento.*;
-import Player.CurrentPlayerHolder;
+import Player.*;
 import Player.Player;
-import PlayerFactory.PlayerFactory;
+import PlayerFactory.*;
 import Exception.*;
 
 import java.util.Scanner;
@@ -13,14 +13,14 @@ import java.util.Vector;
 public class CreatePlayerCommandFactory implements CommandFactory {
 
     private Scanner sc;
-    private PlayerFactory pf;
+    private UserFactory pf;
     private CurrentPlayerHolder currentPlayerHolder;
     private Vector<Player> playerVector;
     private Stack<Command> redoStack;// Stack to store all commands to be redo
     private Stack<Command> commandStack;  // Stack to store executed commands
     private CareTaker careTaker;
 
-    public CreatePlayerCommandFactory(Scanner sc, PlayerFactory pf, CurrentPlayerHolder currentPlayerHolder,
+    public CreatePlayerCommandFactory(Scanner sc, UserFactory pf, CurrentPlayerHolder currentPlayerHolder,
                                       Vector<Player> playerVector, Stack<Command> redoStack, Stack<Command> commandStack,
                                       CareTaker careTaker) {
         this.sc = sc;
