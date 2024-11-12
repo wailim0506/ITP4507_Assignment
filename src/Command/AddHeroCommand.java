@@ -7,7 +7,6 @@ import java.util.*;
 import HeroFactory.*;
 
 public class AddHeroCommand implements Command {
-    private Scanner sc;
     private CurrentPlayerHolder currentPlayerHolder;
     private HashMap<String, HeroFactory> HeroFactory;
     private String message;
@@ -19,9 +18,8 @@ public class AddHeroCommand implements Command {
     private CareTaker careTaker;
     private Player playerToAdd; //store the player that the hero is added to, for undo and redo
 
-    public AddHeroCommand(Scanner sc, CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
+    public AddHeroCommand(CurrentPlayerHolder currentPlayerHolder, HashMap<String, HeroFactory> HeroFactory
                           ,Stack<Command> redoStack, String id, String name,String heroType, CareTaker careTaker) {
-        this.sc = sc;
         this.currentPlayerHolder = currentPlayerHolder;
         this.HeroFactory = HeroFactory;
         this.redoStack = redoStack;
@@ -32,7 +30,7 @@ public class AddHeroCommand implements Command {
     }
 
     public void execute() {
-        heroToAdd = HeroFactory.get(heroType).createHero(sc, id, name);
+        heroToAdd = HeroFactory.get(heroType).createHero(id, name);
         currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
         playerToAdd = currentPlayerHolder.getCurrentPlayer();
         System.out.println("Hero is added.");

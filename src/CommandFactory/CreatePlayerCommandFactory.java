@@ -4,7 +4,6 @@ import Memento.*;
 import Player.*;
 import Player.Player;
 import PlayerFactory.*;
-import Exception.*;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -40,7 +39,6 @@ public class CreatePlayerCommandFactory implements CommandFactory {
                 id = sc.nextLine();
                 if (id.equals("")) {
                     System.out.println("Player ID cannot be empty.");
-                    continue;
                 }
                 else{
                     break;
@@ -49,11 +47,11 @@ public class CreatePlayerCommandFactory implements CommandFactory {
 
             for (int i = 0; i < playerVector.size(); i++) {
                 if (playerVector.get(i).getPlayerID().equals(id)) {
-                    throw new PlayerIDExistException();
+                    throw new Exception();
                 }
             }
-        } catch (PlayerIDExistException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Player ID already exists");
             System.out.println("Existing player ID:- ");
             return new DisplayAllPlayerCommand(playerVector);
         }
