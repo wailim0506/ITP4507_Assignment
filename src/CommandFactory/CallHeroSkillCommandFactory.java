@@ -32,9 +32,30 @@ public class CallHeroSkillCommandFactory implements CommandFactory {
                 for (int i = 0; i < currentPlayerHolder.getCurrentPlayer().getHeroes().size(); i++) {
                     Hero hero = currentPlayerHolder.getCurrentPlayer().getHeroes().get(i);
                     if (hero.getHeroID().equals(heroID)) {
-                        Command c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
-                        commandStack.push(c);
-                        return c;
+                        Command c;
+                        if(hero instanceof Warrior){
+                            if (((Warrior) hero).getDefencePoint() < 0) {
+                                System.out.println("Defence point is less than 0, cannot call skill");
+                                return new ShowPlayerCommand(currentPlayerHolder);
+                            }else{
+                                c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
+                                commandStack.push(c);
+                                return c;
+                            }
+                        } else if (hero instanceof Warlock){
+                            if (((Warlock) hero).getMp() <= 0) {
+                                System.out.println("Mp is less than or equal to 0, cannot call skill");
+                                return new ShowPlayerCommand(currentPlayerHolder);
+                            }else{
+                                c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
+                                commandStack.push(c);
+                                return c;
+                            }
+
+                        }
+//                        Command c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
+//                        commandStack.push(c);
+//                        return c;
                     }
                 }
                 //if hero not found, the following three code run, telling user what hero they have
