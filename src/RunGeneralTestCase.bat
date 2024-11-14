@@ -1,0 +1,2 @@
+cmd < GeneralTestCase.txt
+pause

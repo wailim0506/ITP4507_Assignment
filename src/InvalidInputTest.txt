@@ -6,3 +6,27 @@ del HeroFactory\*.class
 del Memento\*.class
 del Player\*.class
 del PlayerFactory\*.class
+javac *.java
+cls
+java Main
+k
+c
+P01
+Player 1
+a
+H01, Hero1
+3
+4
+1
+c
+P02
+Player 2
+g
+P09
+g
+P01
+m
+H09
+m
+H01
+x

@@ -1,2 +1,0 @@
-cmd < testcase.txt
-pause

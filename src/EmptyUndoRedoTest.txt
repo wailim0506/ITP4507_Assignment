@@ -1,0 +1,30 @@
+del Command\*.class
+del CommandFactory\*.class
+del Exception\*.class
+del Hero\*.class
+del HeroFactory\*.class
+del Memento\*.class
+del Player\*.class
+del PlayerFactory\*.class
+javac *.java
+cls
+java Main
+u
+r
+c
+P01
+Player 1
+a
+H01, Hero1
+1
+m
+H01
+u
+u
+u
+u
+r
+r
+r
+r
+x
