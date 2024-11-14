@@ -1,0 +1,2 @@
+cmd < InvalidInputTest.txt
+pause

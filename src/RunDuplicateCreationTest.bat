@@ -1,0 +1,2 @@
+cmd < DuplicateCreationTest.txt
+pause

@@ -1,0 +1,2 @@
+cmd < EmptyUndoRedoTest.txt
+pause
