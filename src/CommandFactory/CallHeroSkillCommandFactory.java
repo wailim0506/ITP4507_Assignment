@@ -53,9 +53,6 @@ public class CallHeroSkillCommandFactory implements CommandFactory {
                             }
 
                         }
-//                        Command c =  new CallHeroSkillCommand(hero,redoStack,careTaker);
-//                        commandStack.push(c);
-//                        return c;
                     }
                 }
                 //if hero not found, the following three code run, telling user what hero they have

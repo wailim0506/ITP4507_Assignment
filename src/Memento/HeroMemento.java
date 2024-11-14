@@ -1,5 +1,4 @@
 package Memento;
-
 import Hero.*;
 
 public class HeroMemento implements Memento {

@@ -41,7 +41,7 @@ public class AddHeroCommandFactory implements CommandFactory {
                     String[] split = idName.split(", ");
                     id = split[0];
                     name = split[1];
-                    //check exising hero id for current player
+                    //check existing hero id for current player
                     boolean sameHeroID = false;
                     for (Hero h : currentPlayerHolder.getCurrentPlayer().getHeroes()) {
                         if (h.getHeroID().equals(id)) {

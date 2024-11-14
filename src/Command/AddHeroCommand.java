@@ -44,7 +44,6 @@ public class AddHeroCommand implements Command {
 
     }
     public void redo() {
-        // currentPlayerHolder.getCurrentPlayer().addHero(heroToAdd);
         playerToAdd.addHero(heroToAdd);
         System.out.println("Command (" + message + ") is redone.");
     }

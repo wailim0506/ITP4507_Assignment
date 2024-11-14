@@ -2,7 +2,6 @@ package Command;
 
 import java.util.*;
 
-
 public class ShowUndoRedoCommand implements Command {
     private Stack<Command> commandStack;
     private Stack<Command> redoStack;
